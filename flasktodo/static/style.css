@@ -19,6 +19,18 @@ body {
   padding: 2rem;
 }
 
+section {
+  margin: 0 auto;
+}
+
+form {
+  margin: 0 auto;
+}
+
+form input {
+  font-size: large;
+}
+
 li.completed {
   color: #666666;
   text-decoration: line-through;
@@ -45,3 +57,4 @@ li.completed {
 .todos.li{
   align-items: flex-end;
 }
+

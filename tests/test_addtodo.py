@@ -1,6 +1,6 @@
-#import pytest
+import pytest
 
-#def test_add_todo(client):
-#    response = client.post('/', data={'newtask': 'test'})
+def test_add_todo(client):
+    response = client.post('/newtask', data={'newtask': 'get donuts'})
 
-#    assert b'test' in response.data
+    assert response
