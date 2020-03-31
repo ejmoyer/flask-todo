@@ -27,19 +27,19 @@ def filter(show):
         cur.execute('SELECT * FROM todos WHERE completed = TRUE')
         todos = cur.fetchall()
         cur.close()
-        return render_template("index.html", todos=todos, filter='Completed')
+        return render_template("index.html", todos=todos, filter=show)
 
     if show == 'Uncompleted':
         cur.execute('SELECT * FROM todos WHERE completed = FALSE')
         todos = cur.fetchall()
         cur.close()
-        return render_template("index.html", todos=todos, filter='Uncompleted')
+        return render_template("index.html", todos=todos, filter=show)
 
     if show == 'All':
         cur.execute('SELECT * FROM todos')
         todos = cur.fetchall()
         cur.close()
-        return render_template("index.html", todos=todos, filter='All')
+        return render_template("index.html", todos=todos, filter=show)
 
 @bp.route("/addtask", methods=('POST',))
 def add_new_task():
