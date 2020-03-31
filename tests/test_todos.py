@@ -8,3 +8,7 @@ def test_todo_list(client):
     # Mock data should show three to-do items, one of which is complete
     assert response.data.count(b'<li class="">') == 2
     assert response.data.count(b'<li class="completed">') == 1
+
+def test_mark_complete(client):
+    response = client.post('/done', data={'done': 'do homework'})
+    assert response

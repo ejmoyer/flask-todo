@@ -53,3 +53,16 @@ def add_new_task():
 
         return redirect(url_for('todos.index'))
 
+@bp.route("/markcomplete", methods=('POST',))
+def mark_complete():
+    conn = db.get_db()
+    cur = conn.cursor()
+
+    if request.method == 'POST':
+        done = request.form.get("done")
+        cur.execute("UPDATE todos SET completed = TRUE WHERE description = (%s)",
+                    (done,))
+        conn.commit()
+
+        return redirect(url_for('todos.index'))
+

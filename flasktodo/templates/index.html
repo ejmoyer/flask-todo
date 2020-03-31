@@ -34,7 +34,16 @@
       {% for todo in todos %} <!-- for all posts in data base -->
 
           <li class="{{ "completed" if todo['completed'] }}"> <!-- cross out if completed -->
-            {{ todo['description'] }}
+            {% if todo['completed'] %}
+              {{ todo['description'] }}
+            {% else %}
+            <form action="{{ url_for('todos.mark_complete') }}" method=post>
+              <button type="submit" name="done" value="{{ todo['description'] }}">
+                {{ todo['description'] }}
+              </button>
+            </form>
+
+            {% endif %}
           </li>
 
       {% endfor %}
