@@ -57,12 +57,24 @@ def add_new_task():
 def delete_task():
     conn = db.get_db()
     cur = conn.cursor()
-
+    
     if request.method == 'POST':
         task_to_delete = request.form.get("task_to_delete")
-        print(task_to_delete)
 
         cur.execute("DELETE FROM todos WHERE description = (%s)", (task_to_delete,))
+        conn.commit()
+
+        return redirect(url_for('todos.index'))
+
+@bp.route("/markcomplete", methods=('POST',))
+def mark_complete():
+    conn = db.get_db()
+    cur = conn.cursor()
+
+    if request.method == 'POST':
+        done = request.form.get("done")
+        cur.execute("UPDATE todos SET completed = TRUE WHERE description = (%s)",
+                    (done,))
         conn.commit()
 
         return redirect(url_for('todos.index'))
