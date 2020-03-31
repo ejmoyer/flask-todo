@@ -53,3 +53,16 @@ def add_new_task():
 
         return redirect(url_for('todos.index'))
 
+@bp.route("/deletetask", methods=('POST',))
+def delete_task():
+    conn = db.get_db()
+    cur = conn.cursor()
+
+    if request.method == 'POST':
+        task_to_delete = request.form.get("task_to_delete")
+        print(task_to_delete)
+
+        cur.execute("DELETE FROM todos WHERE description = (%s)", (task_to_delete,))
+        conn.commit()
+
+        return redirect(url_for('todos.index'))

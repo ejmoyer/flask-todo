@@ -35,7 +35,11 @@
 
           <li class="{{ "completed" if todo['completed'] }}"> <!-- cross out if completed -->
             {{ todo['description'] }}
+            <form action="{{ url_for('todos.delete_task') }}" class="deleteButton" method=post>
+              <button type="submit" name="task_to_delete" value="{{ todo['description'] }}">X</button>
+            </form>
           </li>
+
 
       {% endfor %}
       </ul>
