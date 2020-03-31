@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, url_for, redirect
 
 from . import db
 
@@ -43,7 +43,4 @@ def filter(show):
         return render_template("index.html", todos=todos, filter=show)
 
     if show == 'All':
-        cur.execute('SELECT * FROM todos')
-        todos = cur.fetchall()
-        cur.close()
-        return render_template("index.html", todos=todos, filter=show)
+        return redirect(url_for("todos.index"))
