@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+
+from flask import Blueprint, render_template, request, url_for, redirect
 
 from . import db
 
@@ -36,10 +37,7 @@ def filter(show):
         return render_template("index.html", todos=todos, filter=show)
 
     if show == 'All':
-        cur.execute('SELECT * FROM todos')
-        todos = cur.fetchall()
-        cur.close()
-        return render_template("index.html", todos=todos, filter=show)
+        return redirect(url_for("todos.index"))
 
 @bp.route("/addtask", methods=('POST',))
 def add_new_task():
@@ -54,3 +52,4 @@ def add_new_task():
         conn.commit()
 
         return redirect(url_for('todos.index'))
+
