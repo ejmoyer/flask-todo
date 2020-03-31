@@ -1,58 +1,46 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>A simple to-do application</h1>
+  <h1>To-do's</h1>
 
   <form method=post>
     <input type="text" name="newtask" required>
     <input type="submit" value="Add Task">
   </form>
 
-  <article>
-<!------------------------------------------------------------------->
-    <ul>
-      <h2>Completed</h2>
-      {% for todo in todos %} <!-- for all posts in data base -->
+ <section>
+    <ul class='filter'>
 
-        {% if todo['completed'] %}  <!-- if todo is completed -->
+      <li>
+        <a href="{{ url_for('todos.filter', show='All') }}" >All</a>
+      </li>
 
-          <li class="{{ "completed" if todo['completed'] }}">
-            {{ todo['description'] }}
-          </li>
+      <li>
+        <a href="{{ url_for('todos.filter', show='Completed') }}" >Completed</a>
+      </li>
 
-        {% endif %}
+      <li>
+        <a href="{{ url_for('todos.filter', show='Uncompleted') }}" >Uncompleted</a>
+      </li>
 
-      {% endfor %}
     </ul>
-<!------------------------------------------------------------------->
-    <ul>
-    <h2>Uncompleted</h2>
+  </section>
 
+  <article class='todos'>
+<!------------------------------------------------------------------->
+
+      <h2>{{ filter }}</h2>
+      <ul>
       {% for todo in todos %} <!-- for all posts in data base -->
 
-        {% if not todo['completed'] %} <!-- if todo uncompleted -->
-
-          <li>
-            {{ todo['description'] }}
-          </li>
-
-        {% endif %}
-
-      {% endfor %}
-    </ul>
-<!------------------------------------------------------------------->
-    <ul>
-      <h2>All</h2>
-
-      {% for todo in todos %} <!-- for all posts in data base -->
-
-          <li class="{{ "completed" if todo['completed'] }}">
+          <li class="{{ "completed" if todo['completed'] }}"> <!-- cross out if completed -->
             {{ todo['description'] }}
           </li>
 
       {% endfor %}
-    </ul>
+      </ul>
+
 <!------------------------------------------------------------------->
-  </article>
+</article>
 
 {% endblock %}

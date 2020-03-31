@@ -23,3 +23,27 @@ def index():
     cur.close()
 
     return render_template("index.html", todos=todos)
+
+
+@bp.route("/<show>")
+def filter(show):
+
+    cur = db.get_db().cursor()
+
+    if show == 'Completed':
+        cur.execute('SELECT * FROM todos WHERE completed = TRUE')
+        todos = cur.fetchall()
+        cur.close()
+        return render_template("index.html", todos=todos, filter='Completed')
+
+    if show == 'Uncompleted':
+        cur.execute('SELECT * FROM todos WHERE completed = FALSE')
+        todos = cur.fetchall()
+        cur.close()
+        return render_template("index.html", todos=todos, filter='Uncompleted')
+
+    if show == 'All':
+        cur.execute('SELECT * FROM todos')
+        todos = cur.fetchall()
+        cur.close()
+        return render_template("index.html", todos=todos, filter='All')
