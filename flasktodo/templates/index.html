@@ -3,23 +3,24 @@
 {% block content %}
   <h1>To-do's</h1>
 
+  <!-- form to add task -->
   <form action="{{ url_for('todos.add_new_task') }}" method=post>
     <input type="text" name="newtask" required>
     <input type="submit" value="Add Task">
   </form>
 
  <section>
-    <ul class='filter'>
+    <ul class='filter'> <!-- filtering options -->
 
-      <li>
+      <li> <!-- All -->
         <a href="{{ url_for('todos.filter', show='All') }}" >All</a>
       </li>
 
-      <li>
+      <li> <!-- Completed -->
         <a href="{{ url_for('todos.filter', show='Completed') }}" >Completed</a>
       </li>
 
-      <li>
+      <li> <!-- Uncompleted -->
         <a href="{{ url_for('todos.filter', show='Uncompleted') }}" >Uncompleted</a>
       </li>
 
@@ -29,27 +30,36 @@
   <article class='todos'>
 <!------------------------------------------------------------------->
 
-      <h2>{{ filter }}</h2>
+      <h2>{{ filter }}</h2> <!-- title of filter applied -->
       <ul>
       {% for todo in todos %} <!-- for all posts in data base -->
 
           <li class="{{ "completed" if todo['completed'] }}"> <!-- cross out if completed -->
-         
-            {% if todo['completed'] %}
+
+            {% if todo['completed'] %} <!-- for marked tasks -->
               {{ todo['description'] }}
+
+              <!-- button for delete -->
             <form action="{{ url_for('todos.delete_task') }}" class="deleteButton" method=post>
               <button type="submit" name="task_to_delete" value="{{ todo['description'] }}">X</button>
             </form>
-            {% else %}
+
+            {% else %} <!-- for unmarked tasks -->
+
+            <!-- button to mark complete -->
             <form action="{{ url_for('todos.mark_complete') }}" method=post>
               <button type="submit" name="done" value="{{ todo['description'] }}">
                 {{ todo['description'] }}
               </button>
             </form>
+
+              <!-- button for delete -->
             <form action="{{ url_for('todos.delete_task') }}" class="deleteButton" method=post>
               <button type="submit" name="task_to_delete" value="{{ todo['description'] }}">X</button>
             </form>
+
             {% endif %}
+
           </li>
 
 
