@@ -3,17 +3,13 @@
 {% block content %}
   <h1>To-do's</h1>
 
-<<<<<<< HEAD
   <!-- form to add task -->
-=======
->>>>>>> 3e9158ef16de113da30410b74fde554389778b0c
   <form action="{{ url_for('todos.add_new_task') }}" method=post>
     <input type="text" name="newtask" required>
     <input type="submit" value="Add Task">
   </form>
 
  <section>
-<<<<<<< HEAD
     <ul class='filter'> <!-- filtering options -->
 
       <li> <!-- All -->
@@ -25,19 +21,6 @@
       </li>
 
       <li> <!-- Uncompleted -->
-=======
-    <ul class='filter'>
-
-      <li>
-        <a href="{{ url_for('todos.filter', show='All') }}" >All</a>
-      </li>
-
-      <li>
-        <a href="{{ url_for('todos.filter', show='Completed') }}" >Completed</a>
-      </li>
-
-      <li>
->>>>>>> 3e9158ef16de113da30410b74fde554389778b0c
         <a href="{{ url_for('todos.filter', show='Uncompleted') }}" >Uncompleted</a>
       </li>
 
@@ -46,22 +29,15 @@
 
   <article class='todos'>
 <!------------------------------------------------------------------->
-<<<<<<< HEAD
       {% if filter %}
       <h2>{{ filter }}</h2> <!-- title of filter applied -->
       {% else %}
       <h2>All</h2>
       {% endif %}
 
-=======
-
-      <h2>{{ filter }}</h2>
->>>>>>> 3e9158ef16de113da30410b74fde554389778b0c
-      <ul>
       {% for todo in todos %} <!-- for all posts in data base -->
 
           <li class="{{ "completed" if todo['completed'] }}"> <!-- cross out if completed -->
-<<<<<<< HEAD
 
             {% if todo['completed'] %} <!-- for marked tasks -->
               {{ todo['description'] }}
@@ -86,10 +62,6 @@
             </form>
 
             {% endif %}
-
-=======
-            {{ todo['description'] }}
->>>>>>> 3e9158ef16de113da30410b74fde554389778b0c
           </li>
 
 

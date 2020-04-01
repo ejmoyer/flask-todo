@@ -58,3 +58,7 @@ li.completed {
   align-items: flex-end;
 }
 
+/** delete button **/
+.deleteButton {
+  display: inline;
+}
