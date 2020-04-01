@@ -1,7 +1,7 @@
+
 from flask import Blueprint, render_template, request, redirect, url_for
 
 from . import db
-
 
 bp = Blueprint("todos", __name__)
 #----------------------------------------------------------------------#
@@ -27,13 +27,13 @@ def filter(show):
         cur.execute('SELECT * FROM todos WHERE completed = TRUE')
         todos = cur.fetchall()
         cur.close()
-        return render_template("index.html", todos=todos, filter='Completed')
+        return render_template("index.html", todos=todos, filter=show)
 
     if show == 'Uncompleted': #Shows todos where completed is FALSE
         cur.execute('SELECT * FROM todos WHERE completed = FALSE')
         todos = cur.fetchall()
         cur.close()
-        return render_template("index.html", todos=todos, filter='Uncompleted')
+        return render_template("index.html", todos=todos, filter=show)
 
     if show == 'All': #redirects to index to show all
         return redirect(url_for("todos.index"))
