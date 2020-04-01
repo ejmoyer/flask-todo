@@ -25,6 +25,7 @@ section {
 
 form {
   margin: 0 auto;
+  display: inline;
 }
 
 form input {
@@ -61,4 +62,16 @@ li.completed {
 /** delete button **/
 .deleteButton {
   display: inline;
+}
+
+/** edit link **/
+.editLink {
+  padding: 1px 7px 2px;
+  border-style: solid;
+  border-color: rgb(216, 216, 216);
+  border-width: 1px;
+  border-radius: 5px;
+  font-size: 14px;
+  text-decoration: none;
+  color: black;
 }

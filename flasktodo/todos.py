@@ -3,6 +3,8 @@ from flask import Blueprint, render_template, request, redirect, url_for
 
 from . import db
 
+from werkzeug.exceptions import abort
+
 bp = Blueprint("todos", __name__)
 #----------------------------------------------------------------------#
 @bp.route("/")
@@ -84,4 +86,25 @@ def mark_complete():
 
         return redirect(url_for('todos.index'))
 #----------------------------------------------------------------------#
+@bp.route("/<int:id>/edittask", methods=('GET', 'POST'))
+def edit_task(id):
+    """View for editing todos"""
 
+    conn = db.get_db()
+    cur = conn.cursor()
+
+    cur.execute('SELECT * FROM todos WHERE id = (%s);', (id,))
+    todo = cur.fetchone()
+
+    if todo is None:
+        abort(404, "Todo not found.")
+
+    if request.method == 'POST':
+        newdesc = request.form.get('newdesc')
+        cur.execute("UPDATE todos SET description = (%s) WHERE id = (%s);", (newdesc, id,))
+        conn.commit()
+
+        return redirect(url_for('todos.index'))
+
+    cur.close()
+    return render_template("edit.html", todo=todo, id=id)

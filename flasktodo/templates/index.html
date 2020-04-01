@@ -35,6 +35,7 @@
       <h2>All</h2>
       {% endif %}
 
+      <ul>
       {% for todo in todos %} <!-- for all posts in data base -->
 
           <li class="{{ "completed" if todo['completed'] }}"> <!-- cross out if completed -->
@@ -60,6 +61,9 @@
             <form action="{{ url_for('todos.delete_task') }}" class="deleteButton" method=post>
               <button type="submit" name="task_to_delete" value="{{ todo['description'] }}">X</button>
             </form>
+
+              <!-- button for edit -->
+            <a href="{{ url_for('todos.edit_task', id=todo.id) }}" class="editLink">Edit</a>
 
             {% endif %}
           </li>

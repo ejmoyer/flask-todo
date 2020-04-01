@@ -18,3 +18,14 @@ def test_delete(client):
 def test_mark_complete(client):
     response = client.post('/done', data={'done': 'do homework'})
     assert response
+
+def test_edit_task(client):
+    exist_response = client.get('/') # Check if Edit link exists in Index
+    assert b'Edit</a>' in exist_response.data
+
+    page_response = client.get('/1/edittask') # Check if the Edit Page exists
+    assert page_response
+
+    change_response = client.post('/1/edittask', data={'newdesc': 'test change'}) # Test editting a todo
+    assert change_response
+    assert b'test change' in client.get('/').data
