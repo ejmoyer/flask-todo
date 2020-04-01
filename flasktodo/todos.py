@@ -1,23 +1,21 @@
+
 from flask import Blueprint, render_template, request, url_for, redirect
 
 from . import db
 
 
 bp = Blueprint("todos", __name__)
+<<<<<<< HEAD
 #----------------------------------------------------------------------#
+=======
+
+>>>>>>> 3e9158ef16de113da30410b74fde554389778b0c
 @bp.route("/")
 def index():
     """View for home page which shows list of to-do items."""
-    if request.method == 'POST':
-        newtask = request.form['newtask']
+    conn = db.get_db()
+    cur = conn.cursor()
 
-        cur = db.get_db().cursor()
-        cur.execute("INSERT INTO todos (description, completed, created_at) VALUES (%s, FALSE, NOW())",
-                    (newtask,))
-        db.get_db().commit()
-        cur.close()
-
-    cur = db.get_db().cursor()
     cur.execute('SELECT * FROM todos')
     todos = cur.fetchall()
     cur.close()
@@ -43,15 +41,22 @@ def filter(show):
 
     if show == 'All': #redirects to index to show all
         return redirect(url_for("todos.index"))
+<<<<<<< HEAD
 #----------------------------------------------------------------------#
 @bp.route("/addtask", methods=('POST',))
 def add_new_task():
     """View for adding todos"""
 
+=======
+
+@bp.route("/addtask", methods=('POST',))
+def add_new_task():
+>>>>>>> 3e9158ef16de113da30410b74fde554389778b0c
     conn = db.get_db()
     cur = conn.cursor()
 
     if request.method == 'POST':
+<<<<<<< HEAD
         newtask = request.form['newtask'] #newtask is equal to new todo
 
         cur.execute("INSERT INTO todos (description, completed, created_at) VALUES (%s, FALSE, NOW())",
@@ -90,3 +95,13 @@ def mark_complete():
 
         return redirect(url_for('todos.index'))
 #----------------------------------------------------------------------#
+=======
+        newtask = request.form['newtask']
+
+        cur.execute("INSERT INTO todos (description, completed, created_at) VALUES (%s, FALSE, NOW())",
+                    (newtask,))
+        conn.commit()
+
+        return redirect(url_for('todos.index'))
+
+>>>>>>> 3e9158ef16de113da30410b74fde554389778b0c
