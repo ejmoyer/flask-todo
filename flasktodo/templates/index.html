@@ -29,9 +29,12 @@
 
   <article class='todos'>
 <!------------------------------------------------------------------->
-
+      {% if filter %}
       <h2>{{ filter }}</h2> <!-- title of filter applied -->
-      <ul>
+      {% else %}
+      <h2>All</h2>
+      {% endif %}
+
       {% for todo in todos %} <!-- for all posts in data base -->
 
           <li class="{{ "completed" if todo['completed'] }}"> <!-- cross out if completed -->
@@ -59,7 +62,6 @@
             </form>
 
             {% endif %}
-
           </li>
 
 

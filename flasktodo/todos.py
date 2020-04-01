@@ -37,11 +37,11 @@ def filter(show):
 
     if show == 'All': #redirects to index to show all
         return redirect(url_for("todos.index"))
+
 #----------------------------------------------------------------------#
 @bp.route("/addtask", methods=('POST',))
 def add_new_task():
     """View for adding todos"""
-
     conn = db.get_db()
     cur = conn.cursor()
 
@@ -84,3 +84,4 @@ def mark_complete():
 
         return redirect(url_for('todos.index'))
 #----------------------------------------------------------------------#
+
