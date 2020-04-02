@@ -7,7 +7,7 @@ from werkzeug.exceptions import abort
 
 bp = Blueprint("todos", __name__)
 #----------------------------------------------------------------------#
-@bp.route("/")
+@bp.route("/", methods=('GET', 'POST'))
 def index():
     """View for home page which shows list of to-do items."""
 
@@ -17,29 +17,30 @@ def index():
     todos = cur.fetchall()
     cur.close()
 
-    return render_template("index.html", todos=todos)
+    #Filtering what shows
+    show = filter(request.args.get('show'))
+    show_title = request.args.get('show')
+
+    if show:
+        return render_template("index.html", todos=show, filter=show_title)
+
+    return render_template("index.html", todos=todos, filter=show_title)
 #----------------------------------------------------------------------#
-@bp.route("/<show>")
 def filter(show):
     """View for filtering todos"""
-
     cur = db.get_db().cursor()
 
     if show == 'Completed': #Shows todos where completed is TRUE
         cur.execute('SELECT * FROM todos WHERE completed = TRUE')
         todos = cur.fetchall()
         cur.close()
-        return render_template("index.html", todos=todos, filter=show)
+        return todos
 
     if show == 'Uncompleted': #Shows todos where completed is FALSE
         cur.execute('SELECT * FROM todos WHERE completed = FALSE')
         todos = cur.fetchall()
         cur.close()
-        return render_template("index.html", todos=todos, filter=show)
-
-    if show == 'All': #redirects to index to show all
-        return redirect(url_for("todos.index"))
-
+        return todos
 #----------------------------------------------------------------------#
 @bp.route("/addtask", methods=('POST',))
 def add_new_task():

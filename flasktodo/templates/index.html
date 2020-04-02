@@ -13,15 +13,15 @@
     <ul class='filter'> <!-- filtering options -->
 
       <li> <!-- All -->
-        <a href="{{ url_for('todos.filter', show='All') }}" >All</a>
+        <a href="{{ url_for('todos.index', show='All') }}" >All</a>
       </li>
 
       <li> <!-- Completed -->
-        <a href="{{ url_for('todos.filter', show='Completed') }}" >Completed</a>
+        <a href="{{ url_for('todos.index', show='Completed') }}" >Completed</a>
       </li>
 
       <li> <!-- Uncompleted -->
-        <a href="{{ url_for('todos.filter', show='Uncompleted') }}" >Uncompleted</a>
+        <a href="{{ url_for('todos.index', show='Uncompleted') }}" >Uncompleted</a>
       </li>
 
     </ul>
