@@ -41,11 +41,15 @@ def create_app(test_config=None):
     from . import db
     db.init_app(app)
 
+    from . import auth
+    app.register_blueprint(auth.bp)
+
     # Register Routes
     # ---------------
     from . import todos
     app.register_blueprint(todos.bp)
 
+
+
     # Return application object to be used by a WSGI server, like gunicorn
     return app
-
