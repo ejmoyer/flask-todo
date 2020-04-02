@@ -5,3 +5,5 @@ VALUES ('clean room', FALSE, NOW()),
        ('do homework', TRUE, NOW()),
        ('get groceries', FALSE, NOW());
 
+INSERT INTO users (username, password)
+VALUES ('test_user', 'testpassword');
