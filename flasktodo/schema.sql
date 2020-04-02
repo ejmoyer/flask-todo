@@ -8,7 +8,16 @@
 DROP TABLE IF EXISTS todos;
 -- Add query to drop users table here
 
+<<<<<<< Updated upstream
 -- Add query to create users table here
+=======
+-- Registered Users
+CREATE TABLE users (
+    id bigserial PRIMARY KEY,
+    username varchar(20) UNIQUE NOT NULL,
+    password text NOT NULL
+);
+>>>>>>> Stashed changes
 
 -- To-Do Items
 CREATE TABLE todos (
