@@ -7,8 +7,15 @@
 -- Drop existing tables
 DROP TABLE IF EXISTS todos;
 -- Add query to drop users table here
-
+DROP TABLE IF EXISTS users;
 -- Add query to create users table here
+
+-- Registered Users
+CREATE TABLE users (
+    id bigserial PRIMARY KEY,
+    username varchar(20) UNIQUE NOT NULL,
+    password varchar(20) NOT NULL
+);
 
 -- To-Do Items
 CREATE TABLE todos (
