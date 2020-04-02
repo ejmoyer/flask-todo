@@ -29,11 +29,7 @@
 
   <article class='todos'>
 <!------------------------------------------------------------------->
-      {% if filter %}
-      <h2>{{ filter }}</h2> <!-- title of filter applied -->
-      {% else %}
       <h2>All</h2>
-      {% endif %}
 
       <ul>
       {% for todo in todos %} <!-- for all posts in data base -->
