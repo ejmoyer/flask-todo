@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id bigserial PRIMARY KEY,
     username varchar(20) UNIQUE NOT NULL,
-    password varchar(20) NOT NULL
+    password text NOT NULL
 );
 
 -- To-Do Items
