@@ -6,9 +6,12 @@
 
 -- Drop existing tables
 DROP TABLE IF EXISTS todos;
+<<<<<<< Updated upstream
 -- Add query to drop users table here
 DROP TABLE IF EXISTS users;
 -- Add query to create users table here
+=======
+>>>>>>> Stashed changes
 
 -- Registered Users
 CREATE TABLE users (
