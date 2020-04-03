@@ -2,6 +2,7 @@
 
 {% block content %}
 <h1>Register</h1>
+<a href="{{ url_for('auth.login') }}">Back</a>
 
 <!-- login -->
 <form action="{{ url_for('auth.register') }}" method=post>
