@@ -10,21 +10,11 @@ bp = Blueprint("todos", __name__)
 @bp.route("/", methods=('GET', 'POST'))
 def index():
     """View for home page which shows list of to-do items."""
-
-    conn = db.get_db()
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM todos')
-    todos = cur.fetchall()
-    cur.close()
-
     #Filtering what shows
     show = filter(request.args.get('show'))
     show_title = request.args.get('show')
+    return render_template("index.html", todos=show, filter=show_title)
 
-    if show:
-        return render_template("index.html", todos=show, filter=show_title)
-
-    return render_template("index.html", todos=todos, filter=show_title)
 #----------------------------------------------------------------------#
 def filter(show):
     """View for filtering todos"""
@@ -38,6 +28,12 @@ def filter(show):
 
     if show == 'Uncompleted': #Shows todos where completed is FALSE
         cur.execute('SELECT * FROM todos WHERE completed = FALSE')
+        todos = cur.fetchall()
+        cur.close()
+        return todos
+
+    else:
+        cur.execute('SELECT * FROM todos')
         todos = cur.fetchall()
         cur.close()
         return todos
@@ -55,7 +51,7 @@ def add_new_task():
                     (newtask,)) #newtask is added as description with completed as FASLE and time NOW
         conn.commit()
 
-        return redirect(url_for('todos.index'))
+        return redirect(url_for('todos.index', show='All'))
 #----------------------------------------------------------------------#
 @bp.route("/deletetask", methods=('POST',))
 def delete_task():
@@ -70,7 +66,7 @@ def delete_task():
         cur.execute("DELETE FROM todos WHERE description = (%s)", (task_to_delete,))
         conn.commit()
 
-        return redirect(url_for('todos.index'))
+        return redirect(url_for('todos.index', show='All' ))
 #----------------------------------------------------------------------#
 @bp.route("/markcomplete", methods=('POST',))
 def mark_complete():
@@ -85,7 +81,7 @@ def mark_complete():
                     (done,)) # the todo is set to complete where chose description
         conn.commit()
 
-        return redirect(url_for('todos.index'))
+        return redirect(url_for('todos.index', show='All'))
 #----------------------------------------------------------------------#
 @bp.route("/<int:id>/edittask", methods=('GET', 'POST'))
 def edit_task(id):
@@ -105,7 +101,7 @@ def edit_task(id):
         cur.execute("UPDATE todos SET description = (%s) WHERE id = (%s);", (newdesc, id,))
         conn.commit()
 
-        return redirect(url_for('todos.index'))
+        return redirect(url_for('todos.index', show='All'))
 
     cur.close()
     return render_template("edit.html", todo=todo, id=id)
