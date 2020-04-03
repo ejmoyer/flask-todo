@@ -3,6 +3,10 @@
 {% block content %}
   <h1>To-do's</h1>
 
+  {% if session.user_id %}
+    <a href="{{ url_for('auth.logout') }}">Logout</a>
+  {% endif %}
+
   <!-- form to add task -->
   <form action="{{ url_for('todos.add_new_task') }}" method=post>
     <input type="text" name="newtask" required>
@@ -13,7 +17,7 @@
     <ul class='filter'> <!-- filtering options -->
 
       <li> <!-- All -->
-        <a href="{{ url_for('todos.index', show='All') }}" >All</a>
+        <a href="{{ url_for('todos.index') }}" >All</a>
       </li>
 
       <li> <!-- Completed -->
