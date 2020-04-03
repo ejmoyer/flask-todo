@@ -9,7 +9,7 @@ from werkzeug.exceptions import abort
 bp = Blueprint("todos", __name__)
 #----------------------------------------------------------------------#
 @bp.route("/", methods=('GET', 'POST'))
-#@login_required
+@login_required
 def index():
     """View for home page which shows list of to-do items."""
     #Filtering what shows
@@ -41,7 +41,7 @@ def filter(show):
         return todos
 #----------------------------------------------------------------------#
 @bp.route("/addtask", methods=('POST',))
-#@login_required
+@login_required
 def add_new_task():
     """View for adding todos"""
     conn = db.get_db()
@@ -57,7 +57,7 @@ def add_new_task():
         return redirect(url_for('todos.index', show='All'))
 #----------------------------------------------------------------------#
 @bp.route("/deletetask", methods=('POST',))
-#@login_required
+@login_required
 def delete_task():
     """View for deleting todos"""
 
@@ -73,7 +73,7 @@ def delete_task():
         return redirect(url_for('todos.index', show='All' ))
 #----------------------------------------------------------------------#
 @bp.route("/markcomplete", methods=('POST',))
-#@login_required
+@login_required
 def mark_complete():
     """View for marking todos complete"""
 
@@ -91,7 +91,7 @@ def mark_complete():
 
 
 @bp.route("/<int:id>/edittask", methods=('GET', 'POST'))
-#@login_required
+@login_required
 def edit_task(id):
     """View for editing todos"""
 
